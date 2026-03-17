@@ -52,6 +52,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                 { id: 'production', label: 'Производство' },
                 { id: 'partners', label: 'Партнёры' },
                 { id: 'contacts', label: 'Контакты' },
+                { id: 'documents', label: 'Документы' },
               ].map((item) => (
                 <li key={item.id}>
                   <button

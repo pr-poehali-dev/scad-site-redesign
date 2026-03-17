@@ -8,8 +8,9 @@ import QualityPage from '@/pages/QualityPage';
 import ProductionPage from '@/pages/ProductionPage';
 import PartnersPage from '@/pages/PartnersPage';
 import ContactsPage from '@/pages/ContactsPage';
+import DocumentsPage from '@/pages/DocumentsPage';
 
-type Page = 'home' | 'about' | 'products' | 'quality' | 'production' | 'partners' | 'contacts';
+type Page = 'home' | 'about' | 'products' | 'quality' | 'production' | 'partners' | 'contacts' | 'documents';
 
 interface PageProps {
   onNavigate: (page: string) => void;
@@ -23,6 +24,7 @@ const pageComponents: Record<Page, (props: PageProps) => JSX.Element> = {
   production: (props) => <ProductionPage {...props} />,
   partners: (props) => <PartnersPage {...props} />,
   contacts: (props) => <ContactsPage {...props} />,
+  documents: (props) => <DocumentsPage {...props} />,
 };
 
 function App() {

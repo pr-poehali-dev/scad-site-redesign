@@ -14,6 +14,7 @@ const navItems = [
   { id: 'production', label: 'Производство' },
   { id: 'partners', label: 'Партнёры' },
   { id: 'contacts', label: 'Контакты' },
+  { id: 'documents', label: 'Документы' },
 ];
 
 export default function Navbar({ activePage, onNavigate }: NavbarProps) {
