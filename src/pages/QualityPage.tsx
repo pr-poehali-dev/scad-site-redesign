@@ -339,6 +339,61 @@ export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (
           </div>
         </div>
       </section>
+
+      {/* Regulatory Documents */}
+      <section className="py-16 bg-[#f0f2f5]">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] gold-line-center">
+              Нормативная документация
+            </h2>
+            <p className="text-[#6b7280] mt-6 max-w-xl mx-auto text-sm">
+              Перечень нормативных документов, применяемых в системе менеджмента качества ООО «ЛМЗ «СКАД»
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              { code: 'ГОСТ Р ИСО 9001-2015', name: 'Системы менеджмента качества. Требования', cat: 'СМК' },
+              { code: 'ГОСТ Р 58139-2024', name: 'СМК. Требования к организациям автомобильной промышленности', cat: 'Автомобильный' },
+              { code: 'ГОСТ Р ИСО 14001-2016', name: 'Системы экологического менеджмента. Требования', cat: 'Экология' },
+              { code: 'IATF 16949', name: 'Фундаментальные требования СМК для автомобильной промышленности', cat: 'Автомобильный' },
+              { code: 'ГОСТ 35243-2025', name: 'Колёса для автотранспортных средств. Технические требования', cat: 'Продукция' },
+              { code: 'ГОСТ 1583-93', name: 'Сплавы алюминиевые литейные. Технические условия', cat: 'Материалы' },
+              { code: 'ASTM E155-05', name: 'Стандарт для эталонных рентгенограмм отливок из алюминия', cat: 'Контроль' },
+              { code: 'ГОСТ 31993-2013', name: 'Материалы лакокрасочные. Определение толщины покрытия', cat: 'ЛКП' },
+              { code: 'ГОСТ 52165-2003', name: 'Материалы лакокрасочные. Лаки. Общие технические условия', cat: 'ЛКП' },
+              { code: 'ГОСТ Р 53464-2009', name: 'Отливки из металлов и сплавов. Допуски размеров и массы', cat: 'Литьё' },
+              { code: 'ГОСТ Р ИСО 10360-2-2017', name: 'Координатно-измерительные машины. Приёмочные испытания', cat: 'Метрология' },
+              { code: 'ГОСТ Р 50597-2017', name: 'Дороги автомобильные. Требования к эксплуатационному состоянию', cat: 'Дороги' },
+            ].map((nd) => (
+              <div key={nd.code} className="bg-white p-4 flex gap-4 border border-[#e5e7eb] hover:border-[#ffb800] transition-colors">
+                <div className="w-2 shrink-0 bg-[#ffb800]" />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="font-heading text-sm text-[#0d1d4a]">{nd.code}</div>
+                    <span className="bg-[#0d1d4a]/10 text-[#0d1d4a] text-[10px] px-2 py-0.5 shrink-0 font-medium">{nd.cat}</span>
+                  </div>
+                  <div className="text-[#6b7280] text-xs mt-1 leading-relaxed">{nd.name}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 max-w-4xl mx-auto bg-[#0d1d4a] p-5 grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { title: 'Политика в области качества', icon: 'FileText' },
+              { title: 'Кодекс делового партнёра', icon: 'Handshake' },
+              { title: 'Кодекс корпоративной этики', icon: 'Scale' },
+            ].map((doc) => (
+              <div key={doc.title} className="flex items-center gap-3">
+                <Icon name={doc.icon} size={16} className="text-[#ffb800] shrink-0" />
+                <span className="text-white/80 text-sm">{doc.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
