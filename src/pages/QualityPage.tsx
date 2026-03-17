@@ -345,27 +345,63 @@ export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] gold-line-center">
-              Нормативная документация
+              Документы
             </h2>
-            <p className="text-[#6b7280] mt-6 max-w-xl mx-auto text-sm">
+            <p className="text-[#6b7280] mt-6 max-w-2xl mx-auto text-sm">
               Перечень нормативных документов, применяемых в системе менеджмента качества ООО «ЛМЗ «СКАД»
             </p>
           </div>
 
+          {/* Раздел нормативных документов */}
+          <div className="max-w-4xl mx-auto mb-4">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-1 h-6 bg-[#ffb800]" />
+              <h3 className="font-heading text-lg text-[#0d1d4a]">Раздел документов</h3>
+            </div>
+          </div>
+
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
-              { code: 'ГОСТ Р ИСО 9001-2015', name: 'Системы менеджмента качества. Требования', cat: 'СМК' },
-              { code: 'ГОСТ Р 58139-2024', name: 'СМК. Требования к организациям автомобильной промышленности', cat: 'Автомобильный' },
-              { code: 'ГОСТ Р ИСО 14001-2016', name: 'Системы экологического менеджмента. Требования', cat: 'Экология' },
-              { code: 'IATF 16949', name: 'Фундаментальные требования СМК для автомобильной промышленности', cat: 'Автомобильный' },
-              { code: 'ГОСТ 35243-2025', name: 'Колёса для автотранспортных средств. Технические требования', cat: 'Продукция' },
-              { code: 'ГОСТ 1583-93', name: 'Сплавы алюминиевые литейные. Технические условия', cat: 'Материалы' },
-              { code: 'ASTM E155-05', name: 'Стандарт для эталонных рентгенограмм отливок из алюминия', cat: 'Контроль' },
-              { code: 'ГОСТ 31993-2013', name: 'Материалы лакокрасочные. Определение толщины покрытия', cat: 'ЛКП' },
-              { code: 'ГОСТ 52165-2003', name: 'Материалы лакокрасочные. Лаки. Общие технические условия', cat: 'ЛКП' },
-              { code: 'ГОСТ Р 53464-2009', name: 'Отливки из металлов и сплавов. Допуски размеров и массы', cat: 'Литьё' },
-              { code: 'ГОСТ Р ИСО 10360-2-2017', name: 'Координатно-измерительные машины. Приёмочные испытания', cat: 'Метрология' },
-              { code: 'ГОСТ Р 50597-2017', name: 'Дороги автомобильные. Требования к эксплуатационному состоянию', cat: 'Дороги' },
+              {
+                code: 'ГОСТ Р 50597-2017',
+                name: '«Дороги автомобильные и улицы. Требования к эксплуатационному состоянию, допустимому по условиям обеспечения безопасности дорожного движения. Методы контроля»',
+                cat: 'Дороги',
+              },
+              {
+                code: 'IATF 16949',
+                name: '«Фундаментальные требования к системе менеджмента качества для производства автомобильной промышленности и организации, производящих соответствующие сервисные части»',
+                cat: 'Автомобильный',
+              },
+              {
+                code: 'ГОСТ Р 58139-2024',
+                name: '«Системы менеджмента качества. Требования к организациям автомобильной промышленности»',
+                cat: 'Автомобильный',
+              },
+              {
+                code: 'ГОСТ Р ИСО 9001-2015',
+                name: '«Системы менеджмента качества. Требования»',
+                cat: 'СМК',
+              },
+              {
+                code: 'ГОСТ 31993-2013',
+                name: 'Материалы лакокрасочные. Определение толщины покрытия',
+                cat: 'ЛКП',
+              },
+              {
+                code: 'ГОСТ 52165-2003',
+                name: 'Материалы лакокрасочные. Лаки. Общие технические условия',
+                cat: 'ЛКП',
+              },
+              {
+                code: 'ГОСТ Р 53464-2009',
+                name: 'Отливки из металлов и сплавов. Допуски размеров, массы и припуски на механическую обработку',
+                cat: 'Литьё',
+              },
+              {
+                code: 'ГОСТ Р ИСО 10360-2-2017',
+                name: 'Характеристики изделий геометрические. Приёмочные и перепроверочные испытания координатно-измерительных машин. Координатно-измерительные машины, применяемые для измерения линейных размеров',
+                cat: 'Метрология',
+              },
             ].map((nd) => (
               <div key={nd.code} className="bg-white p-4 flex gap-4 border border-[#e5e7eb] hover:border-[#ffb800] transition-colors">
                 <div className="w-2 shrink-0 bg-[#ffb800]" />
@@ -380,17 +416,29 @@ export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (
             ))}
           </div>
 
-          <div className="mt-8 max-w-4xl mx-auto bg-[#0d1d4a] p-5 grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              { title: 'Политика в области качества', icon: 'FileText' },
-              { title: 'Кодекс делового партнёра', icon: 'Handshake' },
-              { title: 'Кодекс корпоративной этики', icon: 'Scale' },
-            ].map((doc) => (
-              <div key={doc.title} className="flex items-center gap-3">
-                <Icon name={doc.icon} size={16} className="text-[#ffb800] shrink-0" />
-                <span className="text-white/80 text-sm">{doc.title}</span>
-              </div>
-            ))}
+          {/* Внутренние документы */}
+          <div className="max-w-4xl mx-auto mt-10 mb-5">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-1 h-6 bg-[#ffb800]" />
+              <h3 className="font-heading text-lg text-[#0d1d4a]">Внутренние документы предприятия</h3>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { title: 'Политика в области качества', icon: 'ShieldCheck' },
+                { title: 'Кодекс делового партнёра', icon: 'Handshake' },
+                { title: 'Кодекс корпоративной этики', icon: 'Scale' },
+                { title: 'Политика по противодействию недобросовестным действиям', icon: 'Ban' },
+                { title: 'Паспорт колеса', icon: 'FileText' },
+                { title: 'Политика в отношении обработки персональных данных и сведения о реализуемых требованиях к защите персональных данных', icon: 'Lock' },
+              ].map((doc) => (
+                <div key={doc.title} className="bg-white border border-[#e5e7eb] hover:border-[#ffb800] transition-colors p-4 flex items-start gap-3">
+                  <div className="w-8 h-8 bg-[#0d1d4a] flex items-center justify-center shrink-0">
+                    <Icon name={doc.icon} size={14} className="text-[#ffb800]" />
+                  </div>
+                  <span className="text-[#0d1d4a] text-sm leading-relaxed">{doc.title}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
