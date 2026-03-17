@@ -46,13 +46,13 @@ export default function ContactsPage({ onNavigate: _onNavigate }: { onNavigate: 
               {[
                 {
                   icon: 'MapPin',
-                  title: 'Адрес',
-                  lines: ['663090, Красноярский край,', 'г. Дивногорск, ул. Заводская, 5'],
+                  title: 'Производство',
+                  lines: ['Красноярский край, г. Дивногорск', 'Красноярская площадка: КрАМЗ'],
                 },
                 {
                   icon: 'Phone',
                   title: 'Телефон',
-                  lines: ['+7 (391) 234-56-78', '+7 (391) 234-56-79 (факс)'],
+                  lines: ['+7 (391) 262-xx-xx', 'Отдел продаж: по запросу'],
                 },
                 {
                   icon: 'Mail',
@@ -61,7 +61,7 @@ export default function ContactsPage({ onNavigate: _onNavigate }: { onNavigate: 
                 },
                 {
                   icon: 'Globe',
-                  title: 'Сайт',
+                  title: 'Интернет-магазин',
                   lines: ['scad.ru'],
                 },
               ].map((item) => (
@@ -131,9 +131,9 @@ export default function ContactsPage({ onNavigate: _onNavigate }: { onNavigate: 
                 <div className="absolute inset-0 bg-gradient-to-br from-steel-200 to-steel-300" />
                 <div className="relative z-10 text-center">
                   <Icon name="MapPin" size={36} className="text-[#ffb800] mx-auto mb-2" />
-                  <div className="font-heading text-[#0d1d4a] text-base">г. Дивногорск, ул. Заводская, 5</div>
+                  <div className="font-heading text-[#0d1d4a] text-base">г. Дивногорск, Красноярский край</div>
                   <a
-                    href="https://yandex.ru/maps/?text=Дивногорск+ул+Заводская+5"
+                    href="https://yandex.ru/maps/?text=Дивногорск+Красноярский+край"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 mt-3 bg-[#ffb800] text-[#0d1d4a] text-sm px-4 py-2 font-heading font-semibold hover:bg-[#ffd966] transition-colors"

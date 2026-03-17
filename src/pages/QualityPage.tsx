@@ -1,75 +1,96 @@
 import { useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
+const QUALITY_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/54c5e594-92ff-43e7-9392-ec6f9df89ea3.jpg';
+
 const certs = [
   {
-    code: 'ISO 9001:2015',
+    code: 'ГОСТ Р ИСО 9001-2015',
     name: 'Система менеджмента качества',
-    body: 'TÜV Rheinland',
-    valid: 'до 2026 г.',
-    desc: 'Международный стандарт, устанавливающий требования к системе менеджмента качества организаций.',
+    body: 'EURO CERT',
+    num: '№ 00.12.3218',
+    valid: 'Действует',
+    desc: 'Международный стандарт СМК. Сертификация подтверждает соответствие системы управления качеством всем требованиям стандарта.',
   },
   {
-    code: 'ГОСТ Р ИСО 9001',
-    name: 'Российский стандарт качества',
-    body: 'Росстандарт',
-    valid: 'до 2026 г.',
-    desc: 'Национальный аналог международного стандарта ISO 9001, обязательный для российского рынка.',
+    code: 'ГОСТ Р 58139-2024',
+    name: 'СМК. Требования для автомобильной промышленности',
+    body: 'Объединённый регистр ЮРС-РУСЬ',
+    num: '№ 0104/СМ/РУС',
+    valid: 'Действует',
+    desc: 'Отраслевой стандарт для поставщиков автомобильной промышленности. Аналог IATF 16949 в российской нормативной базе.',
   },
   {
-    code: 'ЕАС / ТР ТС',
-    name: 'Технический регламент ЕАЭС',
-    body: 'ЕАЭС',
-    valid: 'Бессрочно',
-    desc: 'Подтверждает соответствие продукции техническому регламенту таможенного союза.',
+    code: 'ГОСТ Р ИСО 14001-2016',
+    name: 'Система экологического менеджмента',
+    body: 'EURO CERT',
+    num: '№ 00.02.2006',
+    valid: 'Действует',
+    desc: 'Подтверждает соответствие системы экологического менеджмента требованиям стандарта. Комплексный подход к управлению воздействием на окружающую среду.',
   },
   {
-    code: 'IATF 16949',
-    name: 'Стандарт автомобильной отрасли',
-    body: 'Bureau Veritas',
-    valid: 'до 2025 г.',
-    desc: 'Специализированный стандарт качества для поставщиков автомобильной промышленности.',
+    code: 'ГОСТ 35243-2025',
+    name: 'Колёса для автотранспортных средств',
+    body: 'Национальный стандарт РФ',
+    num: 'Производственный стандарт',
+    valid: 'Действует',
+    desc: 'Национальный стандарт, по которому производятся литые диски предприятия. Устанавливает требования к стендовым испытаниям колёс.',
   },
 ];
 
 const qcStages = [
   {
     stage: '1',
-    title: 'Входной контроль',
-    desc: 'Каждая партия алюминиевых сплавов проходит химический анализ в собственной лаборатории. Проверяется состав, механические свойства, наличие примесей.',
-    checks: ['Спектральный анализ сплава', 'Механические испытания', 'Проверка сертификатов поставщика'],
+    title: 'Входной контроль первичного алюминия',
+    desc: 'Контроль химического состава сплава в печи ИАТ-2,5. Проверка химического состава сплава литейной машины GIMA. Проведение контроля газосодержания в сплаве.',
+    checks: ['Спектральный анализ сплава АК7 по ГОСТ 1583-93', 'Контроль газосодержания', 'Проверка документов поставщика АО ОК РУСАЛ'],
   },
   {
     stage: '2',
-    title: 'Контроль литья',
-    desc: 'Каждый отлитый диск проходит рентгенографический контроль для выявления внутренних дефектов литья — пор, раковин, трещин.',
-    checks: ['Рентгенография 100% изделий', 'Контроль геометрии формы', 'Визуальный осмотр'],
+    title: 'Контроль отливки',
+    desc: 'Взвешивание отливки. Контроль внутренней структуры — выявление пор, раковин и трещин методом рентгенографии по ASTM E155-05 и T08-20. Контроль геометрических размеров отливки.',
+    checks: ['Взвешивание: 8,1 ± 0,2 кг', 'Рентгенографический контроль структуры (ASTM E155-05)', 'Геометрический контроль отливки'],
   },
   {
     stage: '3',
     title: 'Механическая обработка',
-    desc: 'После обработки на станках ЧПУ проводится измерение всех критических размеров с применением КИМ (координатно-измерительных машин).',
-    checks: ['КИМ-контроль размеров', 'Контроль биения', 'Проверка резьбовых соединений'],
+    desc: 'Измерение геометрических размеров колеса на КИМ. Контроль правильности нарезки резьбы. Измерение дисбаланса. Контроль параметров процесса.',
+    checks: ['КИМ: DIA 110,1±0,05 мм, ET 60±0,5 мм', 'Смещение PCD (Ø 98) ≤ 0,16 мм', 'Неплоскостность ступицы ≤ 0,1 мм'],
   },
   {
     stage: '4',
-    title: 'Контроль покрытия',
-    desc: 'Толщина и адгезия лакокрасочного покрытия контролируется толщиномером. Соляной туман — проверка коррозионной стойкости.',
-    checks: ['Измерение толщины ЛКП', 'Испытание соляным туманом 720 ч', 'Испытание на скол'],
+    title: 'Контроль покраски',
+    desc: 'Контроль адгезии лакокрасочного покрытия LANKWITZER. Контроль толщины ЛКП толщиномером. Проверка внешнего вида лицевой поверхности по КБ 17-01.',
+    checks: ['Контроль адгезии покрытия', 'Толщина ЛКП согласно техкарте', 'Внешний вид по КБ 17-01'],
   },
   {
     stage: '5',
-    title: 'Финальные испытания',
-    desc: 'Каждый тип диска проходит динамические испытания: ударная нагрузка, усталостное кручение, динамический дисбаланс.',
-    checks: ['Испытание ударной нагрузкой', 'Испытание усталостью (2 млн циклов)', 'Балансировочный контроль'],
+    title: 'Проверка на герметичность',
+    desc: 'Проверка каждого диска на герметичность. Допустимый уровень утечки — не более 3,2 × 10⁻⁵ м³/с. Стендовые испытания по ГОСТ 35243-2025.',
+    checks: ['Герметичность ≤ 3,2 × 10⁻⁵ м³/с', 'Стендовые испытания ГОСТ 35243-2025', 'Финальный визуальный контроль'],
   },
 ];
 
+const nomQuality = [
+  { param: 'Материал', val: 'Сплав АК7 ГОСТ 1583-93' },
+  { param: 'Механические свойства', val: 'ГОСТ 1583-93' },
+  { param: 'Внутренние дефекты', val: 'ASTM E155-05, T08-20' },
+  { param: 'DIA', val: '110,1 ± 0,05 мм' },
+  { param: 'ET', val: '60 ± 0,5 мм' },
+  { param: 'Ширина обода', val: '216 ± 1,5 мм' },
+  { param: 'Масса неокрашенного колеса', val: '8,1 ± 0,2 кг' },
+  { param: 'Угол конусной части крепёжного отверстия', val: '60° −1°' },
+  { param: 'Смещение PCD (Ø 98) от DIA', val: '0,16 мм max' },
+  { param: 'Неплоскостность ступицы', val: '0,1 мм max' },
+  { param: 'Герметичность (уровень утечки)', val: '3,2 × 10⁻⁵ м³/с max' },
+  { param: 'Стендовые испытания', val: 'ГОСТ 35243-2025' },
+];
+
 const technologies = [
-  { icon: 'Cpu', title: 'Станки с ЧПУ', desc: 'Высокоточная обработка на обрабатывающих центрах EMAG и Mazak' },
-  { icon: 'ScanLine', title: 'Рентгенография', desc: 'Цифровой рентгенографический контроль 100% отливок' },
-  { icon: 'FlaskConical', title: 'Спектроанализ', desc: 'Собственная спектральная лаборатория для контроля сплавов' },
-  { icon: 'Gauge', title: 'КИМ-контроль', desc: 'Координатно-измерительные машины для 3D контроля' },
+  { icon: 'Cpu', title: 'КИМ-контроль', desc: 'Координатно-измерительные машины для 3D-контроля всех геометрических параметров' },
+  { icon: 'ScanLine', title: 'Рентгенография', desc: 'Цифровой рентгенографический контроль 100% отливок по ASTM E155-05 и T08-20' },
+  { icon: 'FlaskConical', title: 'Спектральный анализ', desc: 'Собственная лаборатория для анализа химического состава сплавов и газосодержания' },
+  { icon: 'Gauge', title: 'Испытания на герметичность', desc: 'Проверка каждого диска: уровень утечки ≤ 3,2 × 10⁻⁵ м³/с' },
 ];
 
 export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (page: string) => void }) {
@@ -94,15 +115,15 @@ export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (
               <h1 className="font-heading text-4xl md:text-6xl text-white mb-4">Качество и СМК</h1>
               <div className="h-0.5 w-16 bg-[#ffb800] mb-6" />
               <p className="text-white/70 leading-relaxed max-w-lg">
-                Система менеджмента качества ООО «ЛМЗ «СКАД» — это комплексный подход к обеспечению надёжности на каждом этапе производства.
+                В ООО «ЛМЗ «СКАД» с 2013 года функционирует документированная СМК, соответствующая требованиям ГОСТ Р ИСО 9001-2015 и ГОСТ Р 58139-2024. Последняя ресертификация — июнь 2025 года.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { val: 'ISO 9001', label: 'Международный стандарт' },
-                { val: '0%', label: 'Допустимый брак' },
-                { val: '5', label: 'Этапов контроля' },
-                { val: '720ч', label: 'Соляной туман' },
+                { val: '2013', label: 'год внедрения СМК' },
+                { val: '0%', label: 'допустимый брак' },
+                { val: '5', label: 'этапов контроля' },
+                { val: '3 года', label: 'цикл ресертификации' },
               ].map((s) => (
                 <div key={s.label} className="bg-white/5 border border-white/10 p-4 text-center">
                   <div className="font-heading text-2xl text-[#ffb800] font-bold">{s.val}</div>
@@ -121,38 +142,54 @@ export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (
             <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] mb-4 gold-line-center">
               Система менеджмента качества
             </h2>
-            <p className="text-steel-500 mt-6 leading-relaxed">
-              СМК ООО «ЛМЗ «СКАД» построена на принципах цикла PDCA (Plan-Do-Check-Act) и охватывает все процессы предприятия — от закупки сырья до обслуживания клиентов. Ежегодные внутренние и внешние аудиты подтверждают эффективность системы.
+            <p className="text-[#6b7280] mt-6 leading-relaxed">
+              СМК ООО «ЛМЗ «СКАД» разработана и внедрена в 2013 году за полтора года без консультационных услуг. Система соответствует требованиям ГОСТ Р ИСО 9001-2015 и ГОСТ Р 58139-2024. Сертификация осуществляется в трёхгодичный период с прохождением всех необходимых этапов. Ежегодно проводятся инспекционные аудиты международной независимой организацией.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {[
-              { title: 'Планирование', desc: 'Установка целей качества, анализ рисков, планирование ресурсов и процессов', icon: 'Target' },
-              { title: 'Реализация', desc: 'Выполнение запланированных процессов, управление производством, контроль', icon: 'Settings' },
-              { title: 'Улучшение', desc: 'Анализ результатов, корректирующие действия, постоянное совершенствование', icon: 'TrendingUp' },
+              { title: 'Планирование (Plan)', desc: 'Установка целей качества, анализ рисков, планирование ресурсов и процессов согласно требованиям стандартов', icon: 'Target' },
+              { title: 'Реализация (Do)', desc: 'Выполнение запланированных процессов, управление производством, контроль на всех этапах', icon: 'Settings' },
+              { title: 'Улучшение (Act)', desc: 'Анализ результатов, корректирующие действия, постоянное совершенствование СМК', icon: 'TrendingUp' },
             ].map((item) => (
               <div key={item.title} className="border-l-4 border-[#ffb800] pl-6 py-4">
                 <Icon name={item.icon} size={24} className="text-[#ffb800] mb-3" />
                 <h3 className="font-heading text-xl text-[#0d1d4a] mb-2">{item.title}</h3>
-                <p className="text-steel-500 text-sm leading-relaxed">{item.desc}</p>
+                <p className="text-[#6b7280] text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
+          </div>
+
+          <div className="bg-[#f0f2f5] p-6 border-l-4 border-[#ffb800] max-w-3xl mx-auto">
+            <div className="font-heading text-[#0d1d4a] text-sm mb-2">Органы сертификации</div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-[#374151]">
+              <div>
+                <div className="font-medium text-[#0d1d4a]">EURO CERT</div>
+                <div className="text-xs text-[#6b7280]">ГОСТ Р ИСО 9001-2015 · № 00.12.3218</div>
+                <div className="text-xs text-[#6b7280]">ГОСТ Р ИСО 14001-2016 · № 00.02.2006</div>
+              </div>
+              <div>
+                <div className="font-medium text-[#0d1d4a]">Объединённый регистр ЮРС-РУСЬ</div>
+                <div className="text-xs text-[#6b7280]">ГОСТ Р 58139-2024 · № 0104/СМ/РУС</div>
+                <div className="text-xs text-[#6b7280]">Последняя ресертификация — июнь 2025 года</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Certificates */}
-      <section className="py-16 bg-steel-100">
+      <section className="py-16 bg-[#f0f2f5]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] gold-line-center">Сертификаты</h2>
-            <p className="text-steel-500 mt-6 max-w-xl mx-auto text-sm">Вы можете скачать актуальные сертификаты в формате PDF</p>
+            <p className="text-[#6b7280] mt-6 max-w-xl mx-auto text-sm">Актуальные сертификаты в формате PDF доступны для скачивания</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {certs.map((c) => (
-              <div key={c.code} className="bg-white shadow-md p-6 flex gap-5 hover:shadow-lg transition-shadow">
+              <div key={c.code} className="bg-white shadow-sm p-6 flex gap-5 hover:shadow-md transition-shadow">
                 <div className="w-16 h-20 bg-[#0d1d4a] flex flex-col items-center justify-center shrink-0">
                   <Icon name="FileText" size={20} className="text-[#ffb800] mb-1" />
                   <span className="text-white text-[9px] text-center leading-tight">PDF</span>
@@ -160,21 +197,21 @@ export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (
                 <div className="flex-1">
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div>
-                      <div className="font-heading text-lg text-[#0d1d4a]">{c.code}</div>
-                      <div className="text-[#ffb800] text-sm">{c.name}</div>
+                      <div className="font-heading text-base text-[#0d1d4a]">{c.code}</div>
+                      <div className="text-[#ffb800] text-xs">{c.name}</div>
                     </div>
                     <div className="bg-green-100 text-green-700 text-xs px-2 py-1 font-medium shrink-0 rounded-sm">
-                      Действует
+                      {c.valid}
                     </div>
                   </div>
-                  <p className="text-steel-500 text-sm leading-relaxed mb-3">{c.desc}</p>
-                  <div className="flex items-center justify-between text-xs text-steel-400">
+                  <p className="text-[#6b7280] text-sm leading-relaxed mb-3">{c.desc}</p>
+                  <div className="flex items-center justify-between text-xs text-[#9ca3af]">
                     <span>Орган: {c.body}</span>
-                    <span>Действителен {c.valid}</span>
+                    <span>{c.num}</span>
                   </div>
                   <button className="mt-3 flex items-center gap-2 text-[#0d1d4a] text-sm font-medium hover:text-[#ffb800] transition-colors">
                     <Icon name="Download" size={14} />
-                    Скачать PDF
+                    Скачать сертификат
                   </button>
                 </div>
               </div>
@@ -188,30 +225,93 @@ export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] gold-line-center">
-              Контроль качества на каждом этапе
+              Контроль качества на производстве
             </h2>
+            <p className="text-[#6b7280] mt-6 max-w-xl mx-auto text-sm">
+              Пять этапов контроля обеспечивают полный цикл — от химического состава сырья до эксплуатационной устойчивости готового колеса
+            </p>
           </div>
 
-          <div className="space-y-6">
-            {qcStages.map((stage, i) => (
-              <div key={stage.stage} className="grid grid-cols-1 md:grid-cols-4 gap-0 bg-white shadow-sm overflow-hidden">
-                <div className={`p-6 flex items-center justify-center ${i % 2 === 0 ? 'bg-[#0d1d4a]' : 'bg-[#152a6e]'}`}>
-                  <div className="text-center">
-                    <div className="font-heading text-5xl text-[#ffb800] font-bold leading-none">0{stage.stage}</div>
-                    <div className="text-white/70 text-sm mt-2">{stage.title}</div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div className="space-y-4">
+              {qcStages.map((s) => (
+                <div key={s.stage} className="border border-[#e5e7eb] p-5 bg-white hover:border-[#ffb800] transition-colors group">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-[#0d1d4a] group-hover:bg-[#ffb800] flex items-center justify-center shrink-0 transition-colors">
+                      <span className="font-heading text-white group-hover:text-[#0d1d4a] font-bold text-sm transition-colors">{s.stage}</span>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-heading text-base text-[#0d1d4a] mb-1">{s.title}</h3>
+                      <p className="text-[#6b7280] text-xs leading-relaxed mb-2">{s.desc}</p>
+                      <div className="flex flex-wrap gap-1">
+                        {s.checks.map((ch) => (
+                          <span key={ch} className="bg-[#f0f2f5] text-[#374151] text-[10px] px-2 py-0.5 rounded-sm">
+                            {ch}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="md:col-span-3 p-6">
-                  <p className="text-steel-600 text-sm leading-relaxed mb-4">{stage.desc}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {stage.checks.map((check) => (
-                      <span key={check} className="flex items-center gap-1.5 bg-steel-100 text-steel-700 text-xs px-3 py-1.5">
-                        <Icon name="Check" size={12} className="text-[#ffb800]" />
-                        {check}
-                      </span>
-                    ))}
+              ))}
+            </div>
+
+            <div className="sticky top-24 space-y-4">
+              <div className="relative">
+                <img src={QUALITY_IMG} alt="Контроль качества" className="w-full h-64 object-cover shadow-xl" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1d4a]/70 to-transparent flex items-end p-4">
+                  <div>
+                    <div className="text-[#ffb800] text-xs tracking-widest uppercase mb-1">Лаборатория</div>
+                    <div className="text-white font-heading text-lg">Входной контроль</div>
                   </div>
                 </div>
+              </div>
+
+              <div className="bg-[#0d1d4a] p-5">
+                <div className="font-heading text-white text-sm mb-3">Нормативная база контроля</div>
+                <div className="space-y-2">
+                  {[
+                    { code: 'ГОСТ 1583-93', desc: 'Механические свойства сплавов' },
+                    { code: 'ASTM E155-05', desc: 'Внутренние дефекты отливок' },
+                    { code: 'T08-20', desc: 'Отраслевой технологический регламент' },
+                    { code: 'ГОСТ 35243-2025', desc: 'Стендовые испытания колёс' },
+                  ].map((n) => (
+                    <div key={n.code} className="flex items-start gap-2">
+                      <div className="w-1.5 h-1.5 bg-[#ffb800] rounded-full mt-1.5 shrink-0" />
+                      <div>
+                        <span className="text-[#ffb800] text-xs font-heading">{n.code}</span>
+                        <span className="text-white/60 text-xs"> — {n.desc}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quality Nomenclature */}
+      <section className="py-16 bg-[#f0f2f5]">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] gold-line-center">
+              Номенклатура показателей качества
+            </h2>
+            <p className="text-[#6b7280] mt-6 max-w-xl mx-auto text-sm">
+              Технические требования и допуски на литые диски ООО «ЛМЗ «СКАД»
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto bg-white shadow-sm overflow-hidden">
+            <div className="grid grid-cols-2 bg-[#0d1d4a] px-5 py-3">
+              <div className="font-heading text-[#ffb800] text-sm">Показатель качества</div>
+              <div className="font-heading text-[#ffb800] text-sm">Технические требования / Допуск</div>
+            </div>
+            {nomQuality.map((row, i) => (
+              <div key={row.param} className={`grid grid-cols-2 px-5 py-3 border-b border-[#e5e7eb] ${i % 2 === 0 ? 'bg-white' : 'bg-[#f9fafb]'}`}>
+                <div className="text-[#374151] text-sm">{row.param}</div>
+                <div className="text-[#0d1d4a] text-sm font-medium">{row.val}</div>
               </div>
             ))}
           </div>
@@ -219,23 +319,26 @@ export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (
       </section>
 
       {/* Technologies */}
-      <section className="py-16 bg-[#0d1d4a]">
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="font-heading text-3xl md:text-4xl text-white gold-line-center">Технологии и инновации</h2>
+          <div className="text-center mb-12">
+            <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] gold-line-center">
+              Технологии и оборудование
+            </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {technologies.map((t) => (
-              <div key={t.title} className="bg-white/5 border border-white/10 p-6 hover:border-[#ffb800] transition-colors text-center">
-                <Icon name={t.icon} size={32} className="text-[#ffb800] mx-auto mb-4" />
-                <h3 className="font-heading text-white text-base mb-2">{t.title}</h3>
-                <p className="text-white/50 text-sm leading-relaxed">{t.desc}</p>
+              <div key={t.title} className="text-center p-6 bg-[#f0f2f5] hover:bg-white hover:shadow-md transition-all">
+                <div className="w-12 h-12 bg-[#0d1d4a] flex items-center justify-center mx-auto mb-4">
+                  <Icon name={t.icon} size={20} className="text-[#ffb800]" />
+                </div>
+                <h3 className="font-heading text-base text-[#0d1d4a] mb-2">{t.title}</h3>
+                <p className="text-[#6b7280] text-xs leading-relaxed">{t.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-
     </div>
   );
 }

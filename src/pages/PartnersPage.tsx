@@ -2,48 +2,48 @@ import { useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
 const partners = [
-  { name: 'АвтоВАЗ', country: 'Россия', type: 'Конвейер', since: '1998', desc: 'Официальный поставщик дисков для конвейерной сборки автомобилей LADA' },
-  { name: 'Škoda Auto', country: 'Чехия', type: 'Конвейер', since: '2008', desc: 'Поставки дисков для моделей Fabia, Rapid, Octavia на заводе в Млада Болеслав' },
-  { name: 'Renault', country: 'Франция', type: 'OEM', since: '2010', desc: 'Партнёрство по поставкам дисков для российского рынка' },
-  { name: 'Hyundai Motor', country: 'Южная Корея', type: 'OEM', since: '2012', desc: 'Сертифицированный поставщик для заводов в России и Казахстане' },
-  { name: 'LADA Запчасти', country: 'Россия', type: 'Дистрибьютор', since: '2000', desc: 'Эксклюзивный дистрибьютор дисков СКАД в официальной дилерской сети LADA' },
-  { name: 'Emex', country: 'Россия', type: 'Дистрибьютор', since: '2005', desc: 'Партнёр по онлайн-продажам в крупнейшем интернет-магазине запчастей' },
+  { name: 'HAVAL', country: 'Тульская обл.', type: 'OEM', sector: 'B2B, OEM', desc: 'Поставки дисков для производства кроссоверов и внедорожников HAVAL на российском заводе.' },
+  { name: 'ПАО «АВТОВАЗ»', country: 'г. Тольятти', type: 'OEM', sector: 'B2B', desc: 'Многолетний партнёр. Диски СКАД устанавливаются на конвейер LADA для первичной сборки.' },
+  { name: 'ООО «УАЗ»', country: 'г. Ульяновск', type: 'OEM', sector: 'B2B', desc: 'Поставки литых алюминиевых дисков для сборки автомобилей УАЗ.' },
+  { name: 'ФГУП «НАМИ»', country: 'г. Москва', type: 'R&D', sector: 'Исследования', desc: 'Партнёрство в области научных исследований и разработок в автомобильной промышленности.' },
+  { name: 'Дистрибьюторы РФ', country: 'Россия', type: 'B2B', sector: 'Aftermarket', desc: 'Оптовая торговля автомобильными деталями. Независимый вторичный рынок запчастей.' },
+  { name: 'Ford Motor Company', country: 'Германия, Испания', type: 'OEM (экспорт)', sector: 'B2B', desc: 'С 2014 года — отгрузки дисков для сборочных линий Ford в Германии и Испании. Статус Q1 присвоен в 2008 году.' },
 ];
 
-const geography = [
-  { region: 'Россия и СНГ', countries: 'Россия, Казахстан, Беларусь, Узбекистан, Армения', pct: '65%' },
-  { region: 'Европа', countries: 'Чехия, Польша, Германия, Франция, Италия', pct: '20%' },
-  { region: 'Азия', countries: 'Южная Корея, Китай, ОАЭ', pct: '10%' },
-  { region: 'Прочие', countries: 'Латинская Америка, Африка', pct: '5%' },
+const consumers = [
+  { type: 'OEM-поставки', desc: 'HAVAL, ПАО «АВТОВАЗ», ООО «УАЗ», Ford', sector: 'B2B, OEM' },
+  { type: 'Научные партнёры', desc: 'ФГУП «НАМИ» — исследования и разработки', sector: 'R&D' },
+  { type: 'Оптово-розничные компании', desc: 'Торговля АТС, шинные центры, Aftermarket', sector: 'B2B2C' },
+  { type: 'Физические лица', desc: 'Потребительский рынок через розницу', sector: 'B2C' },
 ];
 
 const testimonials = [
   {
-    company: 'АвтоВАЗ',
-    person: 'Петров Иван Алексеевич',
-    role: 'Директор по закупкам',
-    text: 'Сотрудничаем с СКАД с 1998 года. За эти годы не было ни одного случая отзыва продукции по вине завода. Качество стабильное, поставки всегда в срок. Рекомендуем как надёжного партнёра.',
+    company: 'ПАО «АВТОВАЗ»',
+    person: 'г. Тольятти',
+    role: 'OEM-партнёр',
+    text: 'Диски СКАД устанавливаются на конвейер LADA для первичной сборки. Многолетнее сотрудничество. Качество соответствует всем требованиям автомобильного OEM-рынка.',
     rating: 5,
   },
   {
-    company: 'Škoda Auto a.s.',
-    person: 'Jan Novák',
-    role: 'Head of Supply Chain',
-    text: 'SKAD has been our trusted partner since 2008. Their wheels consistently meet our European quality standards. The certification process was smooth and the team is very professional.',
+    company: 'HAVAL',
+    person: 'Тульская область',
+    role: 'OEM-партнёр',
+    text: 'Поставки дисков для производства кроссоверов и внедорожников. Строгие требования по качеству выполняются стабильно. Надёжный российский поставщик.',
     rating: 5,
   },
   {
-    company: 'LADA Запчасти',
-    person: 'Соколов Михаил Витальевич',
-    role: 'Коммерческий директор',
-    text: 'Лучшее соотношение цены и качества на российском рынке. Наши клиенты довольны продукцией СКАД, рекламаций крайне мало. Широкий ассортимент позволяет закрыть потребности любого покупателя.',
+    company: 'Ford Motor Company',
+    person: 'Германия / Испания',
+    role: 'Статус Q1, с 2008 г.',
+    text: 'SKAD received Ford Q1 status in 2008. Since 2014, wheels are supplied to Ford assembly lines in Germany and Spain. European quality standards are consistently met.',
     rating: 5,
   },
   {
-    company: 'Авто Мир',
-    person: 'Кузнецова Ольга Петровна',
-    role: 'Директор закупок',
-    text: 'Диски СКАД — основа нашего ассортимента уже более 12 лет. Покупатели возвращаются за повторными покупками. Гарантийные случаи единичны.',
+    company: 'ФГУП «НАМИ»',
+    person: 'г. Москва',
+    role: 'Научный партнёр',
+    text: 'Сотрудничество в сфере научных исследований и разработок в области автомобильной промышленности. ЛМЗ СКАД — активный участник отраслевых R&D-проектов.',
     rating: 5,
   },
 ];
@@ -73,8 +73,8 @@ export default function PartnersPage({ onNavigate: _onNavigate }: { onNavigate: 
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] gold-line-center">Ключевые партнёры</h2>
-            <p className="text-steel-500 mt-6 max-w-xl mx-auto">
-              Нашу продукцию выбирают ведущие автопроизводители и крупнейшие дистрибьюторы мира
+            <p className="text-[#6b7280] mt-6 max-w-xl mx-auto">
+              OEM-поставки на автозаводы, дистрибьюторская сеть по России, экспорт в Европу
             </p>
           </div>
 
@@ -88,8 +88,8 @@ export default function PartnersPage({ onNavigate: _onNavigate }: { onNavigate: 
                     </span>
                   </div>
                   <div className="text-right">
-                    <div className="bg-steel-100 text-steel-600 text-xs px-2 py-1 mb-1">{p.type}</div>
-                    <div className="text-steel-400 text-xs">с {p.since} г.</div>
+                    <div className="bg-[#f0f2f5] text-[#6b7280] text-xs px-2 py-1 mb-1">{p.type}</div>
+                    <div className="text-[#9ca3af] text-xs">{p.sector}</div>
                   </div>
                 </div>
                 <h3 className="font-heading text-xl text-[#0d1d4a] mb-1 group-hover:text-[#ffb800] transition-colors">{p.name}</h3>
@@ -106,17 +106,17 @@ export default function PartnersPage({ onNavigate: _onNavigate }: { onNavigate: 
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="font-heading text-3xl md:text-4xl text-white gold-line-center">
-              География поставок
+              Сегменты потребителей
             </h2>
-            <p className="text-white/50 mt-6 text-sm">Присутствие в 40 странах мира</p>
+            <p className="text-white/50 mt-6 text-sm">OEM, B2B, B2B2C и B2C — полный охват рынка</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {geography.map((g) => (
-              <div key={g.region} className="bg-white/5 border border-white/10 p-6 hover:border-[#ffb800] transition-colors">
-                <div className="font-heading text-3xl text-[#ffb800] font-bold mb-2">{g.pct}</div>
-                <div className="font-heading text-white text-base mb-3">{g.region}</div>
-                <div className="text-white/50 text-xs leading-relaxed">{g.countries}</div>
+            {consumers.map((c) => (
+              <div key={c.type} className="bg-white/5 border border-white/10 p-6 hover:border-[#ffb800] transition-colors">
+                <div className="inline-block bg-[#ffb800] text-[#0d1d4a] text-[10px] px-2 py-0.5 font-heading tracking-widest mb-3">{c.sector}</div>
+                <div className="font-heading text-white text-sm mb-3">{c.type}</div>
+                <div className="text-white/50 text-xs leading-relaxed">{c.desc}</div>
               </div>
             ))}
           </div>

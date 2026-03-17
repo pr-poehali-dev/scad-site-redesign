@@ -1,46 +1,47 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
-const HERO_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/5cacd003-06c6-4f0e-b3f1-8cbc2506e640.jpg';
-const WHEEL_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/4162c717-8a7d-418e-9314-fba147da6f46.jpg';
-const CATALOG_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/6a1eea26-3d26-4cb1-a1aa-9f52cfd05a9d.jpg';
+const HERO_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/d8feb38b-09ff-4eee-a16e-d0df0d64c58c.jpg';
+const WHEEL_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/54688edf-5e3d-4a73-9c9e-a71d7575514f.jpg';
+const CATALOG_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/ed7cf4e6-21b4-4b3e-9017-31f87114f361.jpg';
+const QUALITY_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/54c5e594-92ff-43e7-9392-ec6f9df89ea3.jpg';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
 }
 
 const stats = [
-  { value: '28', label: 'лет на рынке', suffix: '+' },
-  { value: '500', label: 'моделей дисков', suffix: '+' },
-  { value: '3.5', label: 'млн дисков в год', suffix: 'М' },
-  { value: '40', label: 'стран поставок', suffix: '+' },
+  { value: '32', label: 'года на рынке', suffix: '+' },
+  { value: '100', label: 'дизайнов дисков', suffix: '+' },
+  { value: '3', label: 'млн дисков в 2024 г.', suffix: 'М+' },
+  { value: '1081', label: 'сотрудников', suffix: '' },
 ];
 
 const products = [
-  { name: 'Диски классик', desc: 'Надёжные и доступные литые диски для массового рынка', tag: 'Популярное' },
-  { name: 'Диски Sport', desc: 'Лёгкие спортивные диски с улучшенной аэродинамикой', tag: 'Спорт' },
-  { name: 'Диски Premium', desc: 'Эксклюзивные дизайнерские диски для премиальных авто', tag: 'Премиум' },
-  { name: 'Диски Off-Road', desc: 'Усиленные диски для внедорожников и SUV', tag: 'Внедорожник' },
+  { name: 'SKAD', desc: 'Основной бренд завода — надёжные литые диски для массового рынка', tag: 'Основной бренд' },
+  { name: 'K&K', desc: 'Стильные диски с уникальным дизайном для современных автомобилей', tag: 'Дизайн' },
+  { name: 'iFree', desc: 'Доступная серия дисков оптимального соотношения цены и качества', tag: 'Эконом' },
+  { name: 'Premium Series', desc: 'Эксклюзивные диски для требовательных владельцев премиальных авто', tag: 'Премиум' },
 ];
 
 const certs = [
-  { icon: 'ShieldCheck', title: 'ISO 9001:2015', desc: 'Система менеджмента качества' },
-  { icon: 'Award', title: 'ГОСТ Р ИСО 9001', desc: 'Российский стандарт качества' },
-  { icon: 'CheckCircle', title: 'ЕАС сертификация', desc: 'Таможенный союз ЕАЭС' },
-  { icon: 'Star', title: 'TÜV Rheinland', desc: 'Международная сертификация' },
+  { icon: 'ShieldCheck', title: 'ГОСТ Р ИСО 9001-2015', desc: 'Сертификат № 00.12.3218, орган EURO CERT' },
+  { icon: 'Award', title: 'ГОСТ Р 58139-2024', desc: 'Сертификат № 0104/СМ/РУС, орган ЮРС-РУСЬ' },
+  { icon: 'Leaf', title: 'ГОСТ Р ИСО 14001-2016', desc: 'Экологический менеджмент, № 00.02.2006, EURO CERT' },
+  { icon: 'CheckCircle', title: 'ГОСТ 35243-2025', desc: 'Производство по действующему национальному стандарту' },
 ];
 
 const productionSteps = [
-  { num: '01', title: 'Литьё', desc: 'Расплавленный алюминиевый сплав заливается в пресс-форму под давлением' },
-  { num: '02', title: 'Обработка', desc: 'Механическая обработка на станках с ЧПУ до точных размеров' },
-  { num: '03', title: 'Покраска', desc: 'Нанесение защитного покрытия и декоративной отделки' },
-  { num: '04', title: 'Контроль', desc: 'Многоступенчатая проверка качества каждого изделия' },
+  { num: '01', title: 'Входной контроль', desc: 'Спектральный анализ алюминиевого сплава АК7, проверка сертификатов поставщика АО ОК РУСАЛ' },
+  { num: '02', title: 'Литьё', desc: 'Расплавленный сплав заливается в литейную машину GIMA под давлением при контроле температуры' },
+  { num: '03', title: 'Механическая обработка', desc: 'Высокоточная обработка на станках с ЧПУ — контроль КИМ всех критических размеров' },
+  { num: '04', title: 'Покраска и контроль', desc: 'Нанесение ЛКП LANKWITZER, проверка адгезии, толщины покрытия и герметичности' },
 ];
 
 const testimonials = [
-  { company: 'АвтоВАЗ', person: 'Иван Петров', role: 'Директор по закупкам', text: 'Сотрудничаем более 10 лет. Качество стабильное, поставки всегда в срок.' },
-  { company: 'Škoda Auto', person: 'Jan Novák', role: 'Supply Chain Manager', text: 'SKAD wheels meet our strict European quality standards consistently.' },
-  { company: 'LADA Запчасти', person: 'Михаил Соколов', role: 'Коммерческий директор', text: 'Лучшее соотношение цены и качества на российском рынке.' },
+  { company: 'HAVAL', person: 'Тульская область', role: 'OEM-партнёр', text: 'Поставки дисков для производства кроссоверов и внедорожников. Высокие требования по качеству выполняются стабильно.' },
+  { company: 'ПАО «АВТОВАЗ»', person: 'г. Тольятти', role: 'OEM-партнёр', text: 'Многолетнее сотрудничество. Диски СКАД устанавливаются на конвейер Lada. Качество соответствует всем требованиям OEM.' },
+  { company: 'ФГУП «НАМИ»', person: 'г. Москва', role: 'Научный партнёр', text: 'Партнёрство в области научных исследований и разработок в автомобильной промышленности.' },
 ];
 
 export default function HomePage({ onNavigate }: HomePageProps) {
@@ -56,37 +57,36 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* BG */}
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${HERO_IMG})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0d1d4a]/95 via-[#0d1d4a]/80 to-[#0d1d4a]/40" />
-        {/* Diagonal accent */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0d1d4a]/97 via-[#0d1d4a]/85 to-[#0d1d4a]/50" />
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
 
         <div className="relative z-10 container mx-auto px-4 pt-24 pb-16">
           <div className="max-w-2xl">
-            <div
-              className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
+            <div className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-0.5 w-12 bg-[#ffb800]" />
                 <span className="text-[#ffb800] text-xs tracking-[0.3em] uppercase font-body font-medium">
-                  Производство литых дисков
+                  Производство литых алюминиевых дисков
                 </span>
               </div>
 
-              <h1 className="font-heading text-5xl md:text-7xl text-white leading-[1.05] mb-6 tracking-wide">
+              <h1 className="font-heading text-5xl md:text-7xl text-white leading-[1.05] mb-4 tracking-wide">
                 ЛМЗ<br />
                 <span className="text-[#ffb800]">«СКАД»</span>
               </h1>
 
-              <p className="text-white/80 text-xl md:text-2xl font-body font-light mb-4 leading-relaxed">
+              <p className="text-white/75 text-xl md:text-2xl font-body font-light mb-3 leading-relaxed">
                 Ваша уверенность на дороге.
               </p>
-              <p className="text-white/60 text-base mb-10 max-w-lg leading-relaxed">
-                Более 28 лет мы производим литые алюминиевые диски, которым доверяют миллионы водителей и крупнейшие автопроизводители мира.
+              <p className="text-white/55 text-base mb-3 max-w-lg leading-relaxed">
+                Российское предприятие — производитель литых алюминиевых дисков с 1992 года. Площадки в Красноярске и Дивногорске. Более 3 млн дисков в 2024 году.
+              </p>
+              <p className="text-white/50 text-sm mb-10 max-w-lg leading-relaxed">
+                Сертифицированы по ГОСТ Р ИСО 9001-2015, ГОСТ Р 58139-2024 и ГОСТ Р ИСО 14001-2016. Поставщик HAVAL, АвтоВАЗ, УАЗ, НАМИ.
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -97,17 +97,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   Смотреть каталог
                 </button>
                 <button
-                  onClick={() => onNavigate('about')}
+                  onClick={() => onNavigate('quality')}
                   className="border border-white/40 text-white px-8 py-4 font-heading font-semibold text-base tracking-wide hover:border-white hover:bg-white/10 transition-all"
                 >
-                  О заводе
+                  Система качества
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Scroll hint */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
           <div className="w-px h-12 bg-gradient-to-b from-transparent to-[#ffb800]" />
           <span className="text-white/40 text-xs tracking-widest">SCROLL</span>
@@ -142,158 +141,140 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <h2 className="font-heading text-4xl md:text-5xl text-[#0d1d4a] mb-6 gold-line">
                 Завод с историей.<br />Продукция с будущим.
               </h2>
-              <p className="text-steel-600 text-base leading-relaxed mb-4">
-                ООО «ЛМЗ «СКАД» основан в 1996 году в Дивногорске Красноярского края. За почти три десятилетия завод вырос в одного из крупнейших производителей литых алюминиевых дисков в России и СНГ.
+              <p className="text-[#374151] text-base leading-relaxed mb-4">
+                ООО «Литейно-механический завод «СКАД» — российское предприятие, производящее литые алюминиевые диски для легковых автомобилей с использованием современных технологий. Производственные мощности расположены на территории Красноярского металлургического завода и в г. Дивногорске.
               </p>
-              <p className="text-steel-600 text-base leading-relaxed mb-8">
-                Производственные мощности позволяют выпускать более 3,5 миллиона дисков в год. Продукция СКАД поставляется на конвейеры АвтоВАЗа, Škoda, Renault и экспортируется в 40 стран мира.
+              <p className="text-[#374151] text-base leading-relaxed mb-4">
+                Красноярская площадка начала работу в 1991 году как совместное российско-германское предприятие. Первый литой диск выпущен 15 октября 1992 года. Дивногорская площадка основана в 2002 году, массовое производство под маркой SKAD — с 2004 года.
               </p>
+              <p className="text-[#374151] text-base leading-relaxed mb-8">
+                В 2024 году объём производства достиг рекордных 3 миллионов штук. На предприятии работает 1 081 сотрудник, 40 подразделений. Ассортимент включает бренды SKAD, K&K, iFree, Wheels Up, Premium Series — более 100 дизайнов, диаметры от 13 до 20 дюймов, около 3 000 типоразмеров.
+              </p>
+
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
-                  { icon: 'Factory', label: 'Современный завод', desc: '60 000 м² производственных площадей' },
-                  { icon: 'Users', label: 'Опытный коллектив', desc: 'Более 1 200 сотрудников' },
-                  { icon: 'Truck', label: 'Логистика', desc: 'Доставка по всей России и СНГ' },
-                  { icon: 'Zap', label: 'Инновации', desc: 'Собственный R&D центр' },
+                  { icon: 'Factory', label: 'Два производства', desc: 'Красноярск + Дивногорск' },
+                  { icon: 'Users', label: '1 081 сотрудник', desc: '40 подразделений' },
+                  { icon: 'Truck', label: 'OEM-поставки', desc: 'HAVAL, АвтоВАЗ, УАЗ, НАМИ' },
+                  { icon: 'Award', label: 'Рекордный год', desc: '3 000 000 дисков в 2024 г.' },
                 ].map((item) => (
-                  <div key={item.label} className="flex items-start gap-3 p-4 bg-steel-100 rounded-sm">
+                  <div key={item.label} className="flex items-start gap-3 p-4 bg-[#f0f2f5] rounded-sm">
                     <Icon name={item.icon} size={20} className="text-[#ffb800] mt-0.5 shrink-0" />
                     <div>
                       <div className="font-heading text-sm text-[#0d1d4a] font-semibold">{item.label}</div>
-                      <div className="text-xs text-steel-500 mt-0.5">{item.desc}</div>
+                      <div className="text-xs text-[#6b7280] mt-0.5">{item.desc}</div>
                     </div>
                   </div>
                 ))}
               </div>
+
               <button
                 onClick={() => onNavigate('about')}
-                className="border-2 border-[#0d1d4a] text-[#0d1d4a] px-6 py-3 font-heading tracking-wide hover:bg-[#0d1d4a] hover:text-white transition-all text-sm"
+                className="flex items-center gap-2 text-[#0d1d4a] font-heading font-semibold text-sm tracking-wide border-b-2 border-[#ffb800] pb-1 hover:text-[#ffb800] transition-colors"
               >
                 Подробнее о заводе
+                <Icon name="ArrowRight" size={16} />
               </button>
             </div>
-            <div className="relative">
-              <img
-                src={HERO_IMG}
-                alt="Производство СКАД"
-                className="w-full h-96 object-cover shadow-2xl"
-              />
-              <div className="absolute -bottom-4 -left-4 bg-[#ffb800] p-5 shadow-xl">
-                <div className="font-heading text-3xl text-[#0d1d4a] font-bold">1996</div>
-                <div className="text-[#0d1d4a]/70 text-xs mt-0.5">Год основания</div>
+
+            <div className="space-y-6">
+              <div className="relative">
+                <img src={WHEEL_IMG} alt="Литые диски СКАД" className="w-full h-72 object-cover shadow-xl" />
+                <div className="absolute -bottom-3 -right-3 bg-[#ffb800] px-4 py-3">
+                  <div className="font-heading text-[#0d1d4a] text-sm font-bold">с 1992 года</div>
+                  <div className="text-[#0d1d4a]/70 text-xs">производство дисков</div>
+                </div>
               </div>
-              <div className="absolute -top-4 -right-4 bg-[#0d1d4a] p-4 shadow-xl border border-[#ffb800]/30">
-                <Icon name="ShieldCheck" size={24} className="text-[#ffb800] mb-1" />
-                <div className="text-white text-xs font-heading">ISO 9001</div>
-                <div className="text-white/50 text-[10px]">Сертифицировано</div>
+
+              <div className="grid grid-cols-3 gap-4">
+                {[
+                  { val: '3 млн', label: 'дисков в 2024' },
+                  { val: '3000', label: 'типоразмеров' },
+                  { val: '100+', label: 'дизайнов' },
+                ].map((s) => (
+                  <div key={s.label} className="bg-[#f0f2f5] p-4 text-center">
+                    <div className="font-heading text-xl text-[#0d1d4a] font-bold">{s.val}</div>
+                    <div className="text-[#6b7280] text-xs mt-1">{s.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── PRODUCTS ─────────────────────────────────────────────── */}
-      <section className="section-padding bg-steel-100">
+      {/* ─── PRODUCTS PREVIEW ─────────────────────────────────────── */}
+      <section className="py-16 bg-[#f0f2f5]">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <div className="h-px w-12 bg-[#ffb800]" />
-              <span className="text-[#ffb800] text-xs tracking-[0.25em] uppercase">Каталог</span>
-              <div className="h-px w-12 bg-[#ffb800]" />
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="h-0.5 w-8 bg-[#ffb800]" />
+                <span className="text-[#ffb800] text-xs tracking-[0.25em] uppercase">Каталог</span>
+              </div>
+              <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a]">Бренды СКАД</h2>
             </div>
-            <h2 className="font-heading text-4xl md:text-5xl text-[#0d1d4a] gold-line-center">
-              Наша продукция
-            </h2>
-            <p className="text-steel-500 mt-4 max-w-xl mx-auto">
-              Широкий ассортимент литых дисков для любого автомобиля и стиля вождения
-            </p>
+            <button
+              onClick={() => onNavigate('products')}
+              className="hidden md:flex items-center gap-2 text-[#0d1d4a] text-sm font-medium hover:text-[#ffb800] transition-colors"
+            >
+              Весь каталог <Icon name="ArrowRight" size={16} />
+            </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {products.map((p) => (
               <div
                 key={p.name}
-                className="bg-white shadow-md hover:shadow-xl transition-all duration-300 group cursor-pointer overflow-hidden"
+                className="bg-white p-6 cursor-pointer hover:shadow-lg transition-all duration-200 group border border-transparent hover:border-[#ffb800]/30"
                 onClick={() => onNavigate('products')}
               >
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={WHEEL_IMG}
-                    alt={p.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-3 left-3 bg-[#ffb800] text-[#0d1d4a] text-xs font-heading font-bold px-2 py-1">
-                    {p.tag}
-                  </div>
+                <div className="h-32 overflow-hidden mb-4 -mx-6 -mt-6">
+                  <img src={CATALOG_IMG} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
-                <div className="p-5">
-                  <h3 className="font-heading text-lg text-[#0d1d4a] mb-2">{p.name}</h3>
-                  <p className="text-steel-500 text-sm mb-4 leading-relaxed">{p.desc}</p>
-                  <div className="flex items-center text-[#ffb800] text-sm font-medium group-hover:gap-2 transition-all">
-                    <span>Подробнее</span>
-                    <Icon name="ArrowRight" size={14} className="ml-1" />
-                  </div>
+                <div className="inline-block bg-[#0d1d4a] text-[#ffb800] text-[10px] px-2 py-0.5 font-heading tracking-widest mb-3">
+                  {p.tag}
                 </div>
+                <h3 className="font-heading text-xl text-[#0d1d4a] mb-2">{p.name}</h3>
+                <p className="text-[#6b7280] text-sm leading-relaxed">{p.desc}</p>
               </div>
             ))}
-          </div>
-
-          <div className="text-center">
-            <button
-              onClick={() => onNavigate('products')}
-              className="bg-[#0d1d4a] text-white px-8 py-4 font-heading tracking-wide hover:bg-[#152a6e] transition-colors"
-            >
-              Полный каталог продукции
-            </button>
           </div>
         </div>
       </section>
 
-      {/* ─── QUALITY ──────────────────────────────────────────────── */}
-      <section className="section-padding bg-[#0d1d4a] relative overflow-hidden">
-        {/* BG texture */}
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: 'repeating-linear-gradient(45deg, #ffb800 0, #ffb800 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }}
-        />
+      {/* ─── QUALITY ─────────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-[#0d1d4a] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5"
+          style={{ backgroundImage: 'repeating-linear-gradient(45deg, #ffb800 0, #ffb800 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }} />
         <div className="relative z-10 container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="h-0.5 w-8 bg-[#ffb800]" />
-                <span className="text-[#ffb800] text-xs tracking-[0.25em] uppercase">СМК</span>
+                <span className="text-[#ffb800] text-xs tracking-[0.25em] uppercase">Система качества</span>
               </div>
-              <h2 className="font-heading text-4xl md:text-5xl text-white mb-6 gold-line">
-                Качество —<br />наш стандарт
+              <h2 className="font-heading text-3xl md:text-4xl text-white mb-6">
+                СМК с 2013 года.<br />
+                <span className="text-[#ffb800]">Сертификация каждые 3 года.</span>
               </h2>
-              <p className="text-white/70 leading-relaxed mb-8">
-                Система менеджмента качества ООО «ЛМЗ «СКАД» построена на принципах международного стандарта ISO 9001:2015. Каждый диск проходит многоступенчатый контроль — от входного контроля сырья до финальной приёмки готового изделия.
+              <p className="text-white/70 leading-relaxed mb-6">
+                В ООО «ЛМЗ «СКАД» с 2013 года функционирует документированная СМК, разработанная без консультационных услуг за полтора года. Ресертификационный аудит проводится каждые 3 года, ежегодно — инспекционные аудиты международной независимой организацией. Последняя ресертификация — июнь 2025 года.
               </p>
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                {certs.map((c) => (
-                  <div key={c.title} className="border border-white/20 p-4 hover:border-[#ffb800] transition-colors">
-                    <Icon name={c.icon} size={22} className="text-[#ffb800] mb-2" />
-                    <div className="font-heading text-white text-sm font-semibold">{c.title}</div>
-                    <div className="text-white/50 text-xs mt-1">{c.desc}</div>
-                  </div>
-                ))}
-              </div>
               <button
                 onClick={() => onNavigate('quality')}
-                className="bg-[#ffb800] text-[#0d1d4a] px-6 py-3 font-heading font-semibold tracking-wide hover:bg-[#ffd966] transition-colors"
+                className="flex items-center gap-2 bg-[#ffb800] text-[#0d1d4a] px-6 py-3 font-heading font-semibold text-sm tracking-wide hover:bg-[#ffd966] transition-colors"
               >
-                Раздел «Качество»
+                Подробнее о СМК <Icon name="ArrowRight" size={16} />
               </button>
             </div>
-            <div className="grid grid-cols-1 gap-4">
-              {[
-                { pct: '100%', label: 'Входной контроль сырья' },
-                { pct: '100%', label: 'Рентгенографический контроль' },
-                { pct: '100%', label: 'Балансировочный контроль' },
-                { pct: '100%', label: 'Испытания на прочность' },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 bg-white/5 border border-white/10 px-6 py-4">
-                  <div className="font-heading text-2xl text-[#ffb800] font-bold w-16 shrink-0">{item.pct}</div>
-                  <div className="text-white/80 text-sm">{item.label}</div>
-                  <Icon name="CheckCircle" size={16} className="text-[#ffb800] ml-auto shrink-0" />
+
+            <div className="grid grid-cols-2 gap-4">
+              {certs.map((c) => (
+                <div key={c.title} className="bg-white/5 border border-white/10 p-5 hover:bg-white/10 transition-colors">
+                  <Icon name={c.icon} size={24} className="text-[#ffb800] mb-3" />
+                  <div className="font-heading text-white text-sm mb-1">{c.title}</div>
+                  <div className="text-white/50 text-xs leading-relaxed">{c.desc}</div>
                 </div>
               ))}
             </div>
@@ -301,7 +282,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* ─── PRODUCTION ───────────────────────────────────────────── */}
+      {/* ─── PRODUCTION ──────────────────────────────────────────── */}
       <section className="section-padding bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -310,71 +291,86 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <span className="text-[#ffb800] text-xs tracking-[0.25em] uppercase">Производство</span>
               <div className="h-px w-12 bg-[#ffb800]" />
             </div>
-            <h2 className="font-heading text-4xl md:text-5xl text-[#0d1d4a] gold-line-center">
-              Как создаётся диск
+            <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] gold-line-center">
+              Полный цикл производства
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {productionSteps.map((step) => (
-              <div key={step.num} className="relative">
-                <div className="text-[80px] font-heading text-steel-200 leading-none absolute -top-4 -left-2 select-none">
-                  {step.num}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div className="space-y-0">
+              {productionSteps.map((step, i) => (
+                <div key={step.num} className={`flex gap-5 p-5 ${i % 2 === 0 ? 'bg-[#f0f2f5]' : 'bg-white'}`}>
+                  <div className="font-heading text-4xl text-[#ffb800]/30 font-bold shrink-0 leading-none mt-1">{step.num}</div>
+                  <div>
+                    <div className="font-heading text-lg text-[#0d1d4a] mb-1">{step.title}</div>
+                    <p className="text-[#6b7280] text-sm leading-relaxed">{step.desc}</p>
+                  </div>
                 </div>
-                <div className="relative z-10 pt-8 pl-2">
-                  <h3 className="font-heading text-xl text-[#0d1d4a] mb-3">{step.title}</h3>
-                  <p className="text-steel-500 text-sm leading-relaxed">{step.desc}</p>
+              ))}
+            </div>
+
+            <div className="relative">
+              <img src={QUALITY_IMG} alt="Контроль качества СКАД" className="w-full object-cover shadow-xl" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0d1d4a]/80 via-transparent to-transparent flex items-end p-6">
+                <div>
+                  <div className="text-[#ffb800] text-xs tracking-widest uppercase mb-1">Контроль качества</div>
+                  <div className="text-white font-heading text-xl">Каждый диск проверяется</div>
+                  <div className="text-white/70 text-sm mt-1">ГОСТ 35243-2025 · ASTM E155-05 · ГОСТ 1583-93</div>
                 </div>
-                <div className="mt-4 h-0.5 bg-gradient-to-r from-[#ffb800] to-transparent" />
               </div>
-            ))}
+            </div>
           </div>
 
-          <div className="relative h-64 md:h-96 overflow-hidden">
-            <img src={HERO_IMG} alt="Производство" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-[#0d1d4a]/60 flex items-center justify-center">
-              <button
-                onClick={() => onNavigate('production')}
-                className="flex items-center gap-3 bg-[#ffb800] text-[#0d1d4a] px-8 py-4 font-heading font-semibold tracking-wide hover:bg-[#ffd966] transition-colors"
-              >
-                <Icon name="Play" size={18} />
-                Виртуальный тур по заводу
-              </button>
-            </div>
+          <div className="text-center mt-10">
+            <button
+              onClick={() => onNavigate('production')}
+              className="border-2 border-[#0d1d4a] text-[#0d1d4a] px-8 py-3 font-heading font-semibold text-sm tracking-wide hover:bg-[#0d1d4a] hover:text-white transition-all"
+            >
+              Подробнее о производстве
+            </button>
           </div>
         </div>
       </section>
 
-      {/* ─── TESTIMONIALS ─────────────────────────────────────────── */}
-      <section className="section-padding bg-steel-100">
+      {/* ─── PARTNERS ────────────────────────────────────────────── */}
+      <section className="py-16 bg-[#f0f2f5]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <div className="h-px w-12 bg-[#ffb800]" />
-              <span className="text-[#ffb800] text-xs tracking-[0.25em] uppercase">Партнёры</span>
-              <div className="h-px w-12 bg-[#ffb800]" />
-            </div>
-            <h2 className="font-heading text-4xl md:text-5xl text-[#0d1d4a] gold-line-center">
-              Нам доверяют
+            <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] gold-line-center">
+              Партнёры и потребители
             </h2>
+            <p className="text-[#6b7280] mt-6 max-w-xl mx-auto text-sm">
+              ООО «ЛМЗ «СКАД» работает в сегментах B2B (OEM), B2B2C и B2C на российском и международном рынках
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             {testimonials.map((t) => (
-              <div key={t.company} className="bg-white p-8 shadow-md relative">
-                <div className="text-5xl text-[#ffb800] font-heading leading-none mb-4">"</div>
-                <p className="text-steel-600 text-sm leading-relaxed mb-6 italic">{t.text}</p>
-                <div className="border-t border-steel-200 pt-4 flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#0d1d4a] flex items-center justify-center">
-                    <span className="text-[#ffb800] font-heading text-sm font-bold">
-                      {t.company.substring(0, 2)}
-                    </span>
+              <div key={t.company} className="bg-white p-6 shadow-sm border-t-2 border-[#ffb800]">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-[#0d1d4a] flex items-center justify-center rounded-sm shrink-0">
+                    <Icon name="Building2" size={18} className="text-[#ffb800]" />
                   </div>
                   <div>
-                    <div className="font-heading text-[#0d1d4a] text-sm">{t.person}</div>
-                    <div className="text-steel-400 text-xs">{t.role}, {t.company}</div>
+                    <div className="font-heading text-[#0d1d4a] font-semibold text-sm">{t.company}</div>
+                    <div className="text-[#6b7280] text-xs">{t.person} · {t.role}</div>
                   </div>
                 </div>
+                <p className="text-[#374151] text-sm leading-relaxed">{t.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            {[
+              { label: 'OEM-поставки', val: 'HAVAL, АвтоВАЗ, УАЗ' },
+              { label: 'R&D партнёр', val: 'ФГУП «НАМИ»' },
+              { label: 'Aftermarket', val: 'Дистрибьюторы РФ' },
+              { label: 'Розница', val: 'Шинные центры, B2C' },
+            ].map((item) => (
+              <div key={item.label} className="bg-white p-5 border border-[#e5e7eb]">
+                <div className="font-heading text-sm text-[#0d1d4a] mb-1">{item.label}</div>
+                <div className="text-[#6b7280] text-xs">{item.val}</div>
               </div>
             ))}
           </div>
@@ -382,42 +378,43 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="text-center mt-8">
             <button
               onClick={() => onNavigate('partners')}
-              className="border-2 border-[#0d1d4a] text-[#0d1d4a] px-6 py-3 font-heading tracking-wide hover:bg-[#0d1d4a] hover:text-white transition-all text-sm"
+              className="flex items-center gap-2 text-[#0d1d4a] font-heading font-semibold text-sm tracking-wide border-b-2 border-[#ffb800] pb-1 hover:text-[#ffb800] transition-colors mx-auto"
             >
-              Все партнёры
+              Все партнёры <Icon name="ArrowRight" size={16} />
             </button>
           </div>
         </div>
       </section>
 
-      {/* ─── CTA ──────────────────────────────────────────────────── */}
-      <section className="py-16 bg-[#ffb800]">
+      {/* ─── CTA ─────────────────────────────────────────────────── */}
+      <section className="py-16 bg-[#0d1d4a] relative overflow-hidden">
+        <div className="h-1 bg-gradient-to-r from-[#ffb800] via-[#ffd966] to-[#ffb800] absolute top-0 left-0 right-0" />
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] mb-4">
-            Готовы к сотрудничеству?
+          <h2 className="font-heading text-3xl md:text-5xl text-white mb-4">
+            Интернет-магазин SKAD
           </h2>
-          <p className="text-[#0d1d4a]/70 mb-8 max-w-lg mx-auto">
-            Свяжитесь с нашими менеджерами или оформите заявку онлайн. Мы ответим в течение одного рабочего дня.
+          <p className="text-white/60 mb-8 max-w-md mx-auto text-sm leading-relaxed">
+            Весь ассортимент литых дисков, подбор по автомобилю, доставка по России
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <button
-              onClick={() => onNavigate('contacts')}
-              className="bg-[#0d1d4a] text-white px-8 py-4 font-heading font-semibold tracking-wide hover:bg-[#152a6e] transition-colors"
-            >
-              Связаться с нами
-            </button>
             <a
               href="https://scad.ru"
               target="_blank"
               rel="noopener noreferrer"
-              className="border-2 border-[#0d1d4a] text-[#0d1d4a] px-8 py-4 font-heading font-semibold tracking-wide hover:bg-[#0d1d4a] hover:text-white transition-all"
+              className="bg-[#ffb800] text-[#0d1d4a] px-8 py-4 font-heading font-semibold text-base tracking-wide hover:bg-[#ffd966] transition-all inline-flex items-center gap-2"
             >
-              Интернет-магазин
+              <Icon name="ShoppingCart" size={18} />
+              Перейти на scad.ru
             </a>
+            <button
+              onClick={() => onNavigate('contacts')}
+              className="border border-white/40 text-white px-8 py-4 font-heading font-semibold text-base tracking-wide hover:border-white hover:bg-white/10 transition-all"
+            >
+              Связаться с нами
+            </button>
           </div>
         </div>
       </section>
-
     </div>
   );
 }

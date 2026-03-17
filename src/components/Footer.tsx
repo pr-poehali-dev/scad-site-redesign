@@ -25,7 +25,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               </div>
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-4">
-              Производство высококачественных литых алюминиевых дисков с 1996 года. Сертифицировано по ISO 9001.
+              Производство литых алюминиевых дисков с 1992 года. Площадки в Красноярске и Дивногорске. Сертифицировано по ГОСТ Р ИСО 9001-2015, ГОСТ Р 58139-2024, ГОСТ Р ИСО 14001-2016.
             </p>
             <div className="flex gap-3">
               {['vk', 'youtube', 'telegram'].map((net) => (
@@ -72,7 +72,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <Icon name="MapPin" size={16} className="text-[#ffb800] mt-0.5 shrink-0" />
-                <span className="text-white/60 text-sm">Красноярский край, г. Дивногорск, ул. Заводская, 5</span>
+                <span className="text-white/60 text-sm">Красноярский край, г. Дивногорск. Красноярская площадка: КрАМЗ</span>
               </li>
               <li className="flex items-center gap-3">
                 <Icon name="Phone" size={16} className="text-[#ffb800] shrink-0" />
@@ -117,8 +117,9 @@ export default function Footer({ onNavigate }: FooterProps) {
                 <Icon name="ShieldCheck" size={14} className="text-[#ffb800]" />
                 <span className="text-[#ffb800] text-xs font-heading tracking-wide">СЕРТИФИКАТ</span>
               </div>
-              <div className="text-white/60 text-xs">ISO 9001:2015</div>
-              <div className="text-white/60 text-xs">ГОСТ Р ИСО 9001</div>
+              <div className="text-white/60 text-xs">ГОСТ Р ИСО 9001-2015 (EURO CERT)</div>
+              <div className="text-white/60 text-xs">ГОСТ Р 58139-2024 (ЮРС-РУСЬ)</div>
+              <div className="text-white/60 text-xs">ГОСТ Р ИСО 14001-2016 (EURO CERT)</div>
             </div>
           </div>
         </div>
@@ -128,7 +129,7 @@ export default function Footer({ onNavigate }: FooterProps) {
       <div className="border-t border-white/10">
         <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-2">
           <p className="text-white/40 text-xs">
-            © 2024 ООО «ЛМЗ «СКАД». Все права защищены.
+            © 2025 ООО «ЛМЗ «СКАД». Все права защищены. Производство с 1992 г.
           </p>
           <div className="flex gap-4">
             <a href="#" className="text-white/40 hover:text-white/60 text-xs transition-colors">Политика конфиденциальности</a>

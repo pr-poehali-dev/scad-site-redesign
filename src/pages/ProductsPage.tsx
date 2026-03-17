@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
-const WHEEL_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/4162c717-8a7d-418e-9314-fba147da6f46.jpg';
-const CATALOG_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/6a1eea26-3d26-4cb1-a1aa-9f52cfd05a9d.jpg';
+const WHEEL_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/54688edf-5e3d-4a73-9c9e-a71d7575514f.jpg';
+const CATALOG_IMG = 'https://cdn.poehali.dev/projects/74e4c8ec-015f-4a15-8a11-075f235a115c/files/ed7cf4e6-21b4-4b3e-9017-31f87114f361.jpg';
 
 type Product = {
   id: number;
@@ -70,7 +70,7 @@ export default function ProductsPage() {
           <h1 className="font-heading text-4xl md:text-6xl text-white mb-4">Каталог дисков</h1>
           <div className="h-0.5 w-16 bg-[#ffb800]" />
           <p className="text-white/60 mt-4 max-w-xl">
-            Более 500 моделей литых алюминиевых дисков для любого автомобиля
+            Более 100 дизайнов, около 3 000 типоразмеров. Диаметры от 13 до 20 дюймов. Бренды: SKAD, K&K, iFree, Wheels Up, Premium Series.
           </p>
         </div>
       </div>
