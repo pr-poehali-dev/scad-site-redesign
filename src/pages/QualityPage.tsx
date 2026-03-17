@@ -93,7 +93,7 @@ const technologies = [
   { icon: 'Gauge', title: 'Испытания на герметичность', desc: 'Проверка каждого диска: уровень утечки ≤ 3,2 × 10⁻⁵ м³/с' },
 ];
 
-export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (page: string) => void }) {
+export default function QualityPage({ onNavigate }: { onNavigate: (page: string) => void }) {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
@@ -340,105 +340,25 @@ export default function QualityPage({ onNavigate: _onNavigate }: { onNavigate: (
         </div>
       </section>
 
-      {/* Regulatory Documents */}
-      <section className="py-16 bg-[#f0f2f5]">
+      {/* Documents CTA */}
+      <section className="py-12 bg-[#0d1d4a]">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="font-heading text-3xl md:text-4xl text-[#0d1d4a] gold-line-center">
-              Документы
-            </h2>
-            <p className="text-[#6b7280] mt-6 max-w-2xl mx-auto text-sm">
-              Перечень нормативных документов, применяемых в системе менеджмента качества ООО «ЛМЗ «СКАД»
-            </p>
-          </div>
-
-          {/* Раздел нормативных документов */}
-          <div className="max-w-4xl mx-auto mb-4">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-1 h-6 bg-[#ffb800]" />
-              <h3 className="font-heading text-lg text-[#0d1d4a]">Раздел документов</h3>
-            </div>
-          </div>
-
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              {
-                code: 'ГОСТ Р 50597-2017',
-                name: '«Дороги автомобильные и улицы. Требования к эксплуатационному состоянию, допустимому по условиям обеспечения безопасности дорожного движения. Методы контроля»',
-                cat: 'Дороги',
-              },
-              {
-                code: 'IATF 16949',
-                name: '«Фундаментальные требования к системе менеджмента качества для производства автомобильной промышленности и организации, производящих соответствующие сервисные части»',
-                cat: 'Автомобильный',
-              },
-              {
-                code: 'ГОСТ Р 58139-2024',
-                name: '«Системы менеджмента качества. Требования к организациям автомобильной промышленности»',
-                cat: 'Автомобильный',
-              },
-              {
-                code: 'ГОСТ Р ИСО 9001-2015',
-                name: '«Системы менеджмента качества. Требования»',
-                cat: 'СМК',
-              },
-              {
-                code: 'ГОСТ 31993-2013',
-                name: 'Материалы лакокрасочные. Определение толщины покрытия',
-                cat: 'ЛКП',
-              },
-              {
-                code: 'ГОСТ 52165-2003',
-                name: 'Материалы лакокрасочные. Лаки. Общие технические условия',
-                cat: 'ЛКП',
-              },
-              {
-                code: 'ГОСТ Р 53464-2009',
-                name: 'Отливки из металлов и сплавов. Допуски размеров, массы и припуски на механическую обработку',
-                cat: 'Литьё',
-              },
-              {
-                code: 'ГОСТ Р ИСО 10360-2-2017',
-                name: 'Характеристики изделий геометрические. Приёмочные и перепроверочные испытания координатно-измерительных машин. Координатно-измерительные машины, применяемые для измерения линейных размеров',
-                cat: 'Метрология',
-              },
-            ].map((nd) => (
-              <div key={nd.code} className="bg-white p-4 flex gap-4 border border-[#e5e7eb] hover:border-[#ffb800] transition-colors">
-                <div className="w-2 shrink-0 bg-[#ffb800]" />
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="font-heading text-sm text-[#0d1d4a]">{nd.code}</div>
-                    <span className="bg-[#0d1d4a]/10 text-[#0d1d4a] text-[10px] px-2 py-0.5 shrink-0 font-medium">{nd.cat}</span>
-                  </div>
-                  <div className="text-[#6b7280] text-xs mt-1 leading-relaxed">{nd.name}</div>
-                </div>
+          <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Icon name="FileText" size={16} className="text-[#ffb800]" />
+                <span className="text-[#ffb800] text-xs tracking-widest uppercase font-body">Нормативная база</span>
               </div>
-            ))}
-          </div>
-
-          {/* Внутренние документы */}
-          <div className="max-w-4xl mx-auto mt-10 mb-5">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-1 h-6 bg-[#ffb800]" />
-              <h3 className="font-heading text-lg text-[#0d1d4a]">Внутренние документы предприятия</h3>
+              <p className="text-white font-heading text-lg">ГОСТы, стандарты и внутренние документы предприятия</p>
+              <p className="text-white/50 text-sm mt-1">Политики, кодексы, паспорт колеса и вся нормативная документация</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { title: 'Политика в области качества', icon: 'ShieldCheck' },
-                { title: 'Кодекс делового партнёра', icon: 'Handshake' },
-                { title: 'Кодекс корпоративной этики', icon: 'Scale' },
-                { title: 'Политика по противодействию недобросовестным действиям', icon: 'Ban' },
-                { title: 'Паспорт колеса', icon: 'FileText' },
-                { title: 'Политика в отношении обработки персональных данных и сведения о реализуемых требованиях к защите персональных данных', icon: 'Lock' },
-              ].map((doc) => (
-                <div key={doc.title} className="bg-white border border-[#e5e7eb] hover:border-[#ffb800] transition-colors p-4 flex items-start gap-3">
-                  <div className="w-8 h-8 bg-[#0d1d4a] flex items-center justify-center shrink-0">
-                    <Icon name={doc.icon} size={14} className="text-[#ffb800]" />
-                  </div>
-                  <span className="text-[#0d1d4a] text-sm leading-relaxed">{doc.title}</span>
-                </div>
-              ))}
-            </div>
+            <button
+              onClick={() => onNavigate('documents')}
+              className="shrink-0 bg-[#ffb800] text-[#0d1d4a] px-6 py-3 font-heading font-semibold text-sm hover:bg-[#ffd966] transition-colors flex items-center gap-2"
+            >
+              Перейти к документам
+              <Icon name="ArrowRight" size={14} />
+            </button>
           </div>
         </div>
       </section>
