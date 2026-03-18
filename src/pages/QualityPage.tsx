@@ -147,10 +147,11 @@ export default function QualityPage({ onNavigate }: { onNavigate: (page: string)
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {[
               { title: 'Планирование (Plan)', desc: 'Установка целей качества, анализ рисков, планирование ресурсов и процессов согласно требованиям стандартов', icon: 'Target' },
               { title: 'Реализация (Do)', desc: 'Выполнение запланированных процессов, управление производством, контроль на всех этапах', icon: 'Settings' },
+              { title: 'Контроль (Check)', desc: 'Мониторинг и измерение процессов, проверка соответствия продукции установленным требованиям и стандартам', icon: 'ClipboardCheck' },
               { title: 'Улучшение (Act)', desc: 'Анализ результатов, корректирующие действия, постоянное совершенствование СМК', icon: 'TrendingUp' },
             ].map((item) => (
               <div key={item.title} className="border-l-4 border-[#ffb800] pl-6 py-4">
